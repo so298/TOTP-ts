@@ -23,7 +23,7 @@ const keyLenDict = {
  * @returns a numeric String in base 10 that includes
  *              {@link truncationDigits} digits
  */
-export const totp = (
+export const generateTOTP = (
   key: string,
   time: string,
   returnDigits: number,
@@ -56,6 +56,16 @@ export const totp = (
   return res;
 };
 
+type TOTPSettings = {
+  secret: string;
+  variant: VariantType;
+};
+
+/**
+ * decode OTP Auth URI and returns TOTP settings
+ * @param uri OTPAuth URI
+ * @returns
+ */
 export const decodeOtpAuthUri = (uri: string) => {
   uri = uri.trim();
   const minLen = 14;
@@ -76,7 +86,7 @@ export const decodeOtpAuthUri = (uri: string) => {
 
   const algorithm = shaDict[(params.get("algorithm") || "SHA1") as shaDictKeys];
 
-  const res: { secret: string; variant: VariantType } = {
+  const res: TOTPSettings = {
     secret: params.get("secret") || "",
     variant: algorithm as VariantType,
   };

@@ -1,7 +1,7 @@
-import { totp, VariantType } from "../";
+import { generateTOTP, VariantType } from "../";
 
+// test vector is from https://www.rfc-editor.org/rfc/rfc6238#appendix-B
 const secret = "12345678901234567890";
-
 const testVector: { T: string; mode: VariantType; expect: string }[] = [
   {
     T: "0000000000000001",
@@ -97,6 +97,6 @@ const testVector: { T: string; mode: VariantType; expect: string }[] = [
 
 test("totpGenerate test", () => {
   testVector.forEach((vec) => {
-    expect(totp(secret, vec.T, 8, vec.mode)).toBe(vec.expect);
+    expect(generateTOTP(secret, vec.T, 8, vec.mode)).toBe(vec.expect);
   });
 });
