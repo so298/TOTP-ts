@@ -1,0 +1,14 @@
+{
+  "name": "totp-ext",
+  "version": "1.0.0",
+  "description": "Fill TOTP digits in websites",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "jssha": "^3.2.0"
+  }
+}
