@@ -17,7 +17,7 @@ const keyLenDict = {
  *  reference: https://www.rfc-editor.org/rfc/rfc6238#appendix-A
  *
  * @param key the shared secret
- * @param time a value that reflects a time
+ * @param T a value that reflects a time
  * @param returnDigits number of digits to return
  * @param variant the crypto function to use
  * @returns a numeric String in base 10 that includes
@@ -25,12 +25,12 @@ const keyLenDict = {
  */
 export const generateTOTP = (
   key: string,
-  time: string,
+  T: string,
   returnDigits: number,
   variant: VariantType
 ) => {
-  if (time.length < timeLen) {
-    time = "0".repeat(timeLen - time.length) + time;
+  if (T.length < timeLen) {
+    T = "0".repeat(timeLen - T.length) + T;
   }
 
   const shaObj = new jsSHA(variant, "HEX");
@@ -38,7 +38,7 @@ export const generateTOTP = (
   const keyLength = keyLenDict[variant];
   if (key.length != keyLength) key = key.repeat(keyLength).slice(0, keyLength);
   shaObj.setHMACKey(key, "TEXT", { encoding: "UTF8" });
-  shaObj.update(time);
+  shaObj.update(T);
   const hash = shaObj.getHMAC("UINT8ARRAY");
 
   const offset = hash[hash.length - 1] & 0x0f;
