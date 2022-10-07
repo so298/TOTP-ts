@@ -1,4 +1,4 @@
-import { totp, VariantType } from "../totp";
+import { totp, VariantType } from "../";
 
 const secret = "12345678901234567890";
 
