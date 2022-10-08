@@ -9,7 +9,13 @@
     "build": "tsc",
     "prepare": "npm run build"
   },
-  "author": "",
+  "author": "Sosuke Hosokawa",
+  "keywords": [
+    "totp",
+    "auth",
+    "typescript",
+    "RFC6238"
+  ],
   "license": "MIT",
   "dependencies": {
     "@types/jssha": "^3.0.0",
