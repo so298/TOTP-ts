@@ -96,7 +96,10 @@ const testVector: { T: string; mode: VariantType; expect: string }[] = [
 ];
 
 test("totpGenerate test", () => {
+  const encoder = new TextEncoder();
   testVector.forEach((vec) => {
-    expect(generateTOTP(secret, vec.T, 8, vec.mode)).toBe(vec.expect);
+    expect(
+      generateTOTP(encoder.encode(secret), parseInt(vec.T, 16), 8, vec.mode)
+    ).toBe(vec.expect);
   });
 });

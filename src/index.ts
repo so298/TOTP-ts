@@ -27,7 +27,11 @@ export type TOTPOptions = {
  * @param options
  * @returns
  */
-export const getTOTP = (key: string, time: number, options?: TOTPOptions) => {
+export const getTOTP = (
+  key: Uint8Array,
+  time: number,
+  options?: TOTPOptions
+) => {
   options = options ?? { T0: 0, period: 30, algorithm: "SHA-1", digits: 6 };
   const T0 = options.T0 ?? 0;
   const period = options.period || 30;
@@ -35,9 +39,8 @@ export const getTOTP = (key: string, time: number, options?: TOTPOptions) => {
   const digits = options.digits || 6;
 
   const T = Math.floor(time / period);
-  console.log(T);
 
-  return generateTOTP(key, T.toString(16), digits, algorithm);
+  return generateTOTP(key, T - T0, digits, algorithm);
 };
 
 /**
@@ -51,20 +54,25 @@ export const getTOTP = (key: string, time: number, options?: TOTPOptions) => {
  *              {@link truncationDigits} digits
  */
 export const generateTOTP = (
-  key: string,
-  T: string,
+  key: Uint8Array,
+  Tnum: number,
   returnDigits: number,
   variant: VariantType
 ) => {
+  let T = Tnum.toString(16);
   if (T.length < timeLen) {
     T = "0".repeat(timeLen - T.length) + T;
   }
 
+  const decoder = new TextDecoder();
+  let keyStr = decoder.decode(key);
+
   const shaObj = new jsSHA(variant, "HEX");
 
   const keyLength = keyLenDict[variant];
-  if (key.length != keyLength) key = key.repeat(keyLength).slice(0, keyLength);
-  shaObj.setHMACKey(key, "TEXT", { encoding: "UTF8" });
+  if (keyStr.length != keyLength)
+    keyStr = keyStr.repeat(keyLength).slice(0, keyLength);
+  shaObj.setHMACKey(keyStr, "TEXT", { encoding: "UTF8" });
   shaObj.update(T);
   const hash = shaObj.getHMAC("UINT8ARRAY");
 
@@ -101,7 +109,6 @@ export const decodeOtpAuthUri = (uri: string) => {
 
   const paramIdx = uri.search(/\?/);
   const params = new URLSearchParams(uri.slice(paramIdx));
-  console.log(params);
 
   const shaDict = {
     SHA1: "SHA-1",
