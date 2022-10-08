@@ -1,10 +1,11 @@
 # TOTP.ts
 
 A TypeScript implementation of RFC6238
+https://www.rfc-editor.org/rfc/rfc6238
 
 ## examples
 
-Example is in `src/example.ts`
+An example is in `src/example.ts`
 
 ```typescript
 import { generateTOTPFromUri } from "./";
