@@ -13,6 +13,33 @@ const keyLenDict = {
   "SHA-512": 64,
 };
 
+export type TOTPOptions = {
+  T0: number | undefined;
+  period: number | undefined;
+  algorithm: VariantType | undefined;
+  digits: number | undefined;
+};
+
+/**
+ *
+ * @param key
+ * @param time time by second
+ * @param options
+ * @returns
+ */
+export const getTOTP = (key: string, time: number, options?: TOTPOptions) => {
+  options = options ?? { T0: 0, period: 30, algorithm: "SHA-1", digits: 6 };
+  const T0 = options.T0 ?? 0;
+  const period = options.period || 30;
+  const algorithm = options.algorithm || "SHA-1";
+  const digits = options.digits || 6;
+
+  const T = Math.floor(time / period);
+  console.log(T);
+
+  return generateTOTP(key, T.toString(16), digits, algorithm);
+};
+
 /**
  *  reference: https://www.rfc-editor.org/rfc/rfc6238#appendix-A
  *
