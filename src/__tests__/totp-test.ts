@@ -1,8 +1,9 @@
-import { calcTOTP, VariantType } from "../totp";
+import { calcTOTP } from "../totp";
+import { AlgorithmType } from "../types";
 
 // test vector is from https://www.rfc-editor.org/rfc/rfc6238#appendix-B
 const secret = "12345678901234567890";
-const testVector: { T: string; mode: VariantType; expect: string }[] = [
+const testVector: { T: string; mode: AlgorithmType; expect: string }[] = [
   {
     T: "0000000000000001",
     mode: "SHA-1",

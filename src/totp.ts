@@ -3,7 +3,7 @@
  * https://www.rfc-editor.org/rfc/rfc6238.html
  */
 import jsSHA from "jssha";
-import { TOTPOptions, VariantType } from "./types";
+import { TOTPOptions, AlgorithmType } from "./types";
 
 const timeLen = 16;
 const keyLenDict = {
@@ -13,7 +13,7 @@ const keyLenDict = {
 };
 
 /**
- * 
+ *
  * Generate TOTP with specifying time.
  *
  * @param key
@@ -51,7 +51,7 @@ export const calcTOTP = (
   key: Uint8Array,
   Tnum: number,
   returnDigits: number,
-  variant: VariantType
+  variant: AlgorithmType
 ) => {
   let T = Tnum.toString(16);
   if (T.length < timeLen) {

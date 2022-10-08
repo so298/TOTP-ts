@@ -1,4 +1,4 @@
-import { TOTPSettings, VariantType } from "./types";
+import { DecodeURIReturn, AlgorithmType } from "./types";
 
 /**
  * decode OTP Auth URI and returns TOTP settings
@@ -24,9 +24,15 @@ export const decodeOtpAuthUri = (uri: string) => {
 
   const algorithm = shaDict[(params.get("algorithm") || "SHA1") as shaDictKeys];
 
-  const res: TOTPSettings = {
+  if (!params.has("secret")) {
+    throw new Error("No secret value in URI parameters");
+  }
+
+  const res: DecodeURIReturn = {
     secret: params.get("secret") || "",
-    variant: algorithm as VariantType,
+    options: {
+      algorithm: algorithm as AlgorithmType,
+    },
   };
 
   return res;

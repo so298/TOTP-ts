@@ -7,7 +7,7 @@ export const generateTOTPFromUri = (uri: string) => {
   const time = new Date().getTime() / 1000;
   const key = base32ToU8Array(params.secret);
 
-  return generateTOTPWithTime(key, time, { algorithm: params.variant });
+  return generateTOTPWithTime(key, time, params.options);
 };
 
 export default generateTOTPFromUri;
