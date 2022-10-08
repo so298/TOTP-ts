@@ -3,6 +3,8 @@ import { AlgorithmType } from "../types";
 
 // test vector is from https://www.rfc-editor.org/rfc/rfc6238#appendix-B
 const secret = "12345678901234567890";
+const secret32 = secret.repeat(2).slice(0, 32);
+const secret64 = secret.repeat(4).slice(0, 64);
 const testVector: { T: string; mode: AlgorithmType; expect: string }[] = [
   {
     T: "0000000000000001",
@@ -99,6 +101,10 @@ const testVector: { T: string; mode: AlgorithmType; expect: string }[] = [
 test("totpGenerate test", () => {
   const encoder = new TextEncoder();
   testVector.forEach((vec) => {
+    let s = "";
+    if (vec.mode == "SHA-1") s = secret;
+    if (vec.mode == "SHA-256") s = secret32;
+    if (vec.mode == "SHA-512") s = secret64;
     expect(
       calcTOTP(encoder.encode(secret), parseInt(vec.T, 16), 8, vec.mode)
     ).toBe(vec.expect);
