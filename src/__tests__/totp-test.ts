@@ -106,7 +106,7 @@ test("totpGenerate test", () => {
     if (vec.mode == "SHA-256") s = secret32;
     if (vec.mode == "SHA-512") s = secret64;
     expect(
-      calcTOTP(encoder.encode(secret), parseInt(vec.T, 16), 8, vec.mode)
+      calcTOTP(encoder.encode(s), parseInt(vec.T, 16), 8, vec.mode)
     ).toBe(vec.expect);
   });
 });

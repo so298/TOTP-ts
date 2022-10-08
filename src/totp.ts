@@ -64,8 +64,8 @@ export const calcTOTP = (
   const shaObj = new jsSHA(variant, "HEX");
 
   const keyLength = keyLenDict[variant];
-  if (keyStr.length != keyLength)
-    keyStr = keyStr.repeat(keyLength).slice(0, keyLength);
+  if (keyStr.length < keyLength)
+    keyStr = "0".repeat(keyLength - keyStr.length) + keyStr;
   shaObj.setHMACKey(keyStr, "TEXT", { encoding: "UTF8" });
   shaObj.update(T);
   const hash = shaObj.getHMAC("UINT8ARRAY");
