@@ -1,4 +1,4 @@
-# TOTP-ts
+# TOTP.ts
 
 A TypeScript implementation of RFC6238
 

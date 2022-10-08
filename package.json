@@ -1,5 +1,5 @@
 {
-  "name": "totp-ext",
+  "name": "totp-ts",
   "version": "1.0.0",
   "description": "Fill TOTP digits in websites",
   "main": "src/index.js",
