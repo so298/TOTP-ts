@@ -8,7 +8,7 @@ https://www.rfc-editor.org/rfc/rfc6238
 An example is in `src/example.ts`
 
 ```typescript
-import { generateTOTPFromUri } from "./";
+import { generateTOTPFromUri } from "totp-ts";
 
 const uri = 
   "otpauth://totp/hello:world?secret=aaaaaaaa&issuer=so298";
