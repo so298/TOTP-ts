@@ -1,4 +1,4 @@
-import { generateTOTP, VariantType } from "../";
+import { calcTOTP, VariantType } from "../";
 
 // test vector is from https://www.rfc-editor.org/rfc/rfc6238#appendix-B
 const secret = "12345678901234567890";
@@ -99,7 +99,7 @@ test("totpGenerate test", () => {
   const encoder = new TextEncoder();
   testVector.forEach((vec) => {
     expect(
-      generateTOTP(encoder.encode(secret), parseInt(vec.T, 16), 8, vec.mode)
+      calcTOTP(encoder.encode(secret), parseInt(vec.T, 16), 8, vec.mode)
     ).toBe(vec.expect);
   });
 });

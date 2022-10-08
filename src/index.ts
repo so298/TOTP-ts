@@ -27,7 +27,7 @@ export type TOTPOptions = {
  * @param options
  * @returns
  */
-export const getTOTP = (
+export const generateTOTP = (
   key: Uint8Array,
   time: number,
   options?: TOTPOptions
@@ -40,7 +40,7 @@ export const getTOTP = (
 
   const T = Math.floor(time / period);
 
-  return generateTOTP(key, T - T0, digits, algorithm);
+  return calcTOTP(key, T - T0, digits, algorithm);
 };
 
 /**
@@ -53,7 +53,7 @@ export const getTOTP = (
  * @returns a numeric String in base 10 that includes
  *              {@link truncationDigits} digits
  */
-export const generateTOTP = (
+export const calcTOTP = (
   key: Uint8Array,
   Tnum: number,
   returnDigits: number,
