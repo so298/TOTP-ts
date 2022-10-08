@@ -1,8 +1,8 @@
 {
   "name": "totp-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fill TOTP digits in websites",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "jest"
   },
