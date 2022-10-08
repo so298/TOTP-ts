@@ -6,11 +6,6 @@ import jsSHA from "jssha";
 import { TOTPOptions, AlgorithmType } from "./types";
 
 const timeLen = 16;
-const keyLenDict = {
-  "SHA-1": 20,
-  "SHA-256": 32,
-  "SHA-512": 64,
-};
 
 /**
  *
@@ -58,15 +53,8 @@ export const calcTOTP = (
     T = "0".repeat(timeLen - T.length) + T;
   }
 
-  const decoder = new TextDecoder();
-  let keyStr = decoder.decode(key);
-
   const shaObj = new jsSHA(variant, "HEX");
-
-  const keyLength = keyLenDict[variant];
-  if (keyStr.length < keyLength)
-    keyStr = "0".repeat(keyLength - keyStr.length) + keyStr;
-  shaObj.setHMACKey(keyStr, "TEXT", { encoding: "UTF8" });
+  shaObj.setHMACKey(key, "UINT8ARRAY");
   shaObj.update(T);
   const hash = shaObj.getHMAC("UINT8ARRAY");
 
