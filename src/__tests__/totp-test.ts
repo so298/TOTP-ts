@@ -1,4 +1,4 @@
-import { calcTOTP, VariantType } from "../";
+import { calcTOTP, VariantType } from "../totp";
 
 // test vector is from https://www.rfc-editor.org/rfc/rfc6238#appendix-B
 const secret = "12345678901234567890";

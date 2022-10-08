@@ -1,4 +1,4 @@
-import { decodeOtpAuthUri } from "../";
+import { decodeOtpAuthUri } from "../totp";
 
 test("OtpAuth URI decoding", () => {
   const uri =
