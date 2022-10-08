@@ -14,20 +14,22 @@ const keyLenDict = {
 };
 
 export type TOTPOptions = {
-  T0: number | undefined;
-  period: number | undefined;
-  algorithm: VariantType | undefined;
-  digits: number | undefined;
+  T0?: number;
+  period?: number;
+  algorithm?: VariantType ;
+  digits?: number;
 };
 
 /**
+ * 
+ * Generate TOTP with specifying time.
  *
  * @param key
  * @param time time by second
  * @param options
  * @returns
  */
-export const generateTOTP = (
+export const generateTOTPWithTime = (
   key: Uint8Array,
   time: number,
   options?: TOTPOptions
