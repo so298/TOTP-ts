@@ -1,5 +1,6 @@
 import { base32ToU8Array } from "./base32";
-import { generateTOTPWithTime, decodeOtpAuthUri } from "./totp";
+import { generateTOTPWithTime } from "./totp";
+import { decodeOtpAuthUri } from "./uri";
 
 export const generateTOTPFromUri = (uri: string) => {
   const params = decodeOtpAuthUri(uri);

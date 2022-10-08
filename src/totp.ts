@@ -3,21 +3,13 @@
  * https://www.rfc-editor.org/rfc/rfc6238.html
  */
 import jsSHA from "jssha";
-import { URLSearchParams } from "url";
+import { TOTPOptions, VariantType } from "./types";
 
 const timeLen = 16;
-export type VariantType = "SHA-1" | "SHA-256" | "SHA-512";
 const keyLenDict = {
   "SHA-1": 20,
   "SHA-256": 32,
   "SHA-512": 64,
-};
-
-export type TOTPOptions = {
-  T0?: number;
-  period?: number;
-  algorithm?: VariantType ;
-  digits?: number;
 };
 
 /**
@@ -89,43 +81,6 @@ export const calcTOTP = (
   let res = otp.toString();
   if (res.length < returnDigits)
     res = "0".repeat(returnDigits - res.length) + res;
-
-  return res;
-};
-
-type TOTPSettings = {
-  secret: string;
-  variant: VariantType;
-};
-
-/**
- * decode OTP Auth URI and returns TOTP settings
- * @param uri OTPAuth URI
- * @returns
- */
-export const decodeOtpAuthUri = (uri: string) => {
-  uri = uri.trim();
-  const minLen = 14;
-  if (uri.length < minLen || uri.slice(0, minLen) !== "otpauth://totp")
-    throw new Error("Invalid URI format");
-
-  const paramIdx = uri.search(/\?/);
-  const params = new URLSearchParams(uri.slice(paramIdx));
-
-  const shaDict = {
-    SHA1: "SHA-1",
-    SHA256: "SHA-256",
-    SHA512: "SHA-512",
-  };
-
-  type shaDictKeys = "SHA1" | "SHA256" | "SHA512";
-
-  const algorithm = shaDict[(params.get("algorithm") || "SHA1") as shaDictKeys];
-
-  const res: TOTPSettings = {
-    secret: params.get("secret") || "",
-    variant: algorithm as VariantType,
-  };
 
   return res;
 };
