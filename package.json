@@ -2,9 +2,12 @@
   "name": "totp-ts",
   "version": "1.0.1",
   "description": "Fill TOTP digits in websites",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "MIT",

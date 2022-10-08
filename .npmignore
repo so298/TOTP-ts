@@ -1,4 +1,5 @@
 node_modules/
 coverage/
 src/**/__tests__/
-src/example.ts
+src/
+tsconfig.json
