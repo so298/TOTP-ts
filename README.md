@@ -5,8 +5,8 @@ A TypeScript implementation of RFC6238
 ## examples
 
 ```typescript
-import { decodeOtpAuthUri, getTOTP } from ".";
-import { base32ToU8Array } from "./base32";
+import { decodeOtpAuthUri, getTOTP } from "src";
+import { base32ToU8Array } from "src/base32";
 
 const time = new Date().getTime() / 1000;
 
